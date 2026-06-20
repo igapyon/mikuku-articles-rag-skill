@@ -16,12 +16,15 @@ git clone https://github.com/igapyon/mikuku-articles.git references/raw/mikuku-a
 ## Generate index
 
 After preparing the raw article data, generate an index with `miku-indexgen`.
+Use `--exclude-glob` to keep image-generation helper Markdown out of the
+article discovery index.
 
 ```bash
-mkdir -p references/index/mikuku-articles
-java -jar ../igapyon-agent-skills/lib/miku-indexgen-1.5.1.jar \
-  --input-directory references/raw/mikuku-articles \
-  --output-directory references/index/mikuku-articles \
-  --title "mikuku-articles index" \
-  --markdown
+java -jar ../miku-indexgen-java/target/miku-indexgen-1.6.0.jar \
+  --input-directory . \
+  --output-directory . \
+  --title "mikuku-articles rag skill index" \
+  --include-ext md \
+  --exclude-glob "**/images-*/**" \
+  --exclude-glob "**/images/**"
 ```
