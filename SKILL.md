@@ -10,6 +10,12 @@ description: igapyon/mikuku-articles の記事 Markdown を参照して回答す
 Use this skill to answer with local article context from `igapyon/mikuku-articles`.
 This is not a full RAG system. Treat `references/` as a local reference corpus and search it as needed.
 
+## References
+
+- `index.json`: Repository-level generated index. Use it first to find relevant files and front matter.
+- `references/distilled/`: Distilled Markdown context maps. After using `index.json`, read relevant distilled files to understand the corpus before opening large raw sources.
+- `references/raw/`: Raw source material. Open these files only when the distilled notes or the user's question require source-level confirmation.
+
 ## Reference Corpus
 
 - Place the local clone or copy of `https://github.com/igapyon/mikuku-articles` at `references/raw/mikuku-articles`.
@@ -21,11 +27,12 @@ This is not a full RAG system. Treat `references/` as a local reference corpus a
 
 1. Identify the topic, title, keywords, date, or article status implied by the user request.
 2. If `index.json` exists at the skill repository root, inspect it first to identify candidate article files before broad file searches.
-3. Search under `references/raw/mikuku-articles` using any available local file search method when `index.json` is missing, stale, or insufficient for the request.
-4. Prefer Markdown files that are clearly article bodies, published articles, or draft articles.
-5. Open only the smallest relevant set of files needed to answer accurately.
-6. Base the answer on the article text that was actually read.
-7. If the local corpus is missing, empty, or does not contain relevant article body Markdown, say that local article context was unavailable.
+3. Read relevant distilled context maps under `references/distilled/` before opening large raw sources.
+4. Search under `references/raw/mikuku-articles` using any available local file search method when `index.json` and distilled notes are missing, stale, or insufficient for the request.
+5. Prefer Markdown files that are clearly article bodies, published articles, or draft articles.
+6. Open only the smallest relevant set of files needed to answer accurately.
+7. Base the answer on the article text that was actually read.
+8. If the local corpus is missing, empty, or does not contain relevant article body Markdown, say that local article context was unavailable.
 
 ## Search Guidance
 
